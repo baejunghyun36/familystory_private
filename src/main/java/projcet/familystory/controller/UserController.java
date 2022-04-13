@@ -31,6 +31,11 @@ public class UserController {
 
     private final UserService userService;
 
+    /*
+        [home.html 회원가입 버튼 -> createUserForm.html] 과정
+        회원가입 버튼을 눌렀을 때 users/new로 GetMapping 된다.
+        "userForm"이라는 이름을 가진 model 박스에 UserForm의 객체를 담아서 createUserFormd.html 에 보낸다.
+    */
     @GetMapping("/users/new")
     public String createForm(Model model) {
         model.addAttribute("userForm", new UserForm());
@@ -93,14 +98,14 @@ public class UserController {
 //
 //        return "redirect:/users/login";
 //
-////        if(userService.findOne(user)==false){
-////            return "redirect:/";
-////        }
-////
-////        else{
-////            model.addAttribute("loginUser", user);
-////            return "users/login";
-////        }
+//        if(userService.findOne(user)==false){
+//            return "redirect:/";
+//        }
+//
+//        else{
+//            model.addAttribute("loginUser", user);
+//            return "users/login";
+//        }
 //
 //        //홈에 보내
 //    }
@@ -147,6 +152,14 @@ public class UserController {
         return "users/userList";
     }
 
+    //    @GetMapping("/users")
+//    public String list(Model model) {
+//        List<User> users = userService.findUsers();
+//        model.addAttribute("users", users);
+//        return "users/userList";
+//    }
+
+
 //    @PostMapping("/logout")
 //    public String logout(HttpServletResponse response) {
 //        expireCookie(response, "userId");
@@ -163,11 +176,11 @@ public class UserController {
         return "redirect:/";
     }
 
-    private void expireCookie(HttpServletResponse response, String cookieName) {
-        Cookie cookie = new Cookie(cookieName, null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-    }
+//    private void expireCookie(HttpServletResponse response, String cookieName) {
+//        Cookie cookie = new Cookie(cookieName, null);
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
+//    }
 
 /*
     쿠키에 중요한 값을 노출하지 않고 사용자 별로 에측 불가능한 임의의 토큰(랜덤 값)을 노출하고, 서버에서 토큰과 사용자 id를 매핑해서
@@ -184,7 +197,25 @@ public class UserController {
     쿠키 값을 변조 가능, -> 예상 불가능한 복잡한 세션 Id를 사용
     쿠키에 보관하는 정보는 클라이엉ㄴ트 해킹시 털릴 가능성이 있따. -> 세션 Id가 털려도 여기에는 중요한 정보가 없다.
     쿠키탈취 후 사용 -> 해커가 토큰을 털어가도 시간이 지나면 사용할 수 없도록 서버에서 세션의 만료시간을 짧게(예:30분) 유지한다.
-    또는 해킹이 의심되는 경우 서버에서 해당 세션을 강제로 제거하면 된다. */
+    또는 해킹이 의심되는 경우 서버에서 해당 세션을 강제로 제거하면 된다.
+
+
+    쿠키에 중요한 정보를 보관하는 바업ㅂ은 여러가지 보안 이슈가 있따.
+    이 문제를 해결하려면 결국 중요한 정보를 모두 서버에 저장해야하낟.
+    그리고 클라이언트와 서버는 추정 불가능한 임의의 식별자 값으로 연결해야한다.
+
+    이렇게 서버에 중요한 정보를 보관하고 연결을 유지하는 방법을 세션이라 한다.
+
+    세션을 사용해서 서버에서 중요한 정보를 관리하게 된다.
+     - 예상 불가능한 복잡한 세션 Id를 사용함으로써 쿠키 값을 변조할 수 없다.
+     - 세션 Id가 털려도 여기에는 중요한 정보가 없다.
+     - 해커가 토큰을 털어가도 시간이 지나면 사용할 수 없도록 서버에서 세션의 만료시간을 짧게 유지
+
+
+
+    */
+
+
 
 
 

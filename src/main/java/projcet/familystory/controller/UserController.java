@@ -1,4 +1,4 @@
-package projcet.familystory.Controller;
+package projcet.familystory.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import projcet.familystory.domain.User;
-import projcet.familystory.domain.Team;
+import projcet.familystory.form.LoginForm;
+import projcet.familystory.form.UserForm;
 import projcet.familystory.service.UserService;
 import projcet.familystory.session.SessionConst;
 

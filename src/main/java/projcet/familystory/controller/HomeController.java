@@ -1,26 +1,29 @@
-package projcet.familystory.Controller;
+package projcet.familystory.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import projcet.familystory.domain.User;
-import projcet.familystory.repository.UserRepository;
+import projcet.familystory.form.LoginForm;
 import projcet.familystory.service.UserService;
 import projcet.familystory.session.SessionConst;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final UserService userService;
+
+
+    /*
+   localhost:8080 접근 시 해당 RequestMapping을 통해서 home.html 로 보여준다.
+   이때, "loginForm"이라는 모델에 LoginForm()의 형식을 담고 간다.
+   LoginForm()에는 loginId와 password를 String형태로 담고 있으며, @NotEmpty 애노테이션을 줌으로써 공백 입력시 오류를 표시한다.
+*/
+
 
     @RequestMapping("/")
     public String home(Model model) {

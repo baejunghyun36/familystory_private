@@ -15,7 +15,11 @@ import java.util.Optional;
 @org.springframework.transaction.annotation.Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
-
+/*
+    컨트롤러에 해당 로직을 둘 수도 있지만, 이렇게 되면 컨트롤러가 너무 많은 역할을 담당한다.
+    그래서 일반적으로 비즈니스 로직은 서비스라는 계층을 별도로 만들어서 처리한다.
+        그리고 컨트롤러는 비즈니스 로직이 있는 서비스를 호출하는 역할을 담당한다.
+  */
 
     private final UserRepository userRepository;
 

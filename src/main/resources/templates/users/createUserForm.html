@@ -24,8 +24,10 @@
 </style>
 <body>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
+        <ul class="nav nav-pills pull-right">
+            <li><a href="/">Family Story</a></li>
+        </ul>
     <form role="form" action="/users/new" th:object="${userForm}"  method="post">
         <div class="form-group">
 

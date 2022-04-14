@@ -54,6 +54,8 @@ public class HomeController {
 //
 
 
+
+
     @GetMapping("/users/login")
     //세션에 들어있으면 그 내용을 User user객체에 넣어줌. 원래는 바로 위의 코드야
     public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User loginUser,  Model model) {
@@ -65,6 +67,9 @@ public class HomeController {
         model.addAttribute("loginUser", loginUser);
         return "loginHome";
     }
+
+
+
 
 
 //    @GetMapping("/users/login")

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import projcet.familystory.domain.User;
 import projcet.familystory.form.LoginForm;
 import projcet.familystory.form.UserForm;
@@ -111,8 +112,9 @@ public class UserController {
 //    }
 
     @PostMapping("/users/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, Model model, HttpServletRequest request) {
-
+    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, Model model,
+//                        @RequestParam(defaultValue = "/") String redirectURL,
+                        HttpServletRequest request) {
 
         if (result.hasErrors()) {
             return "home";
@@ -133,6 +135,7 @@ public class UserController {
         //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
+
         session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 
         //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)

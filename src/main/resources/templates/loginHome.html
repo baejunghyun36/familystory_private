@@ -10,9 +10,10 @@
 
     <!--    <h2><span th:text="${loginMember.userId}"></span>님 반갑습니다</h2>-->
 
-    <h4 th:text="|${loginUser.userId}님 반갑습니다!!|">로그인 사용자 이름</h4>
+    <h4 th:text="|${loginUser.nickName}님 반갑습니다!!|">로그인 사용자 이름</h4>
 
 
+    <li><a th:href="@{/{uID}/myPage(uID=${loginUser.UId})}">내 정보로 가기 </a></li>
 
     <div class="col">
         <form th:action="@{/logout}" method="post">

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+<body>
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+
+    <!--    <h2><span th:text="${loginMember.userId}"></span>님 반갑습니다</h2>-->
+
+    <h4 th:text="|UID : ${myInformation.UId}|">로그인 사용자 이름</h4>
+    <h4 th:text="|아이디 : ${myInformation.userId}|">로그인 사용자 이름</h4>
+    <h4 th:text="|비밀번호 : ${myInformation.passWord}|">로그인 사용자 이름</h4>
+    <h4 th:text="|이메일 : ${myInformation.email}|">로그인 사용자 이름</h4>
+    <h4 th:text="|닉네임 : ${myInformation.nickName}|">로그인 사용자 이름</h4>
+
+    <!--    <p>-->
+    <!--        <a class="btn btn-lg btn-secondary" href="/users">회원 목록</a>-->
+    <!--    <p class="lead">그룹 기능</p>-->
+    <!--    <a class="btn btn-lg btn-dark" href="/teams/newTeam">그룹 생성</a>-->
+    <!--    <a class="btn btn-lg btn-dark" href="/team">그룹 목록</a>-->
+    <!--    </p>-->
+
+
+
+
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>
+
+
+

@@ -112,8 +112,7 @@ public class UserController {
 //    }
 
     @PostMapping("/users/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, Model model,
-//                        @RequestParam(defaultValue = "/") String redirectURL,
+    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, Model model,//
                         HttpServletRequest request) {
 
         if (result.hasErrors()) {
@@ -130,13 +129,12 @@ public class UserController {
             return "home";
         }
 
-
         //로그인 성공 처리
         //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
-        HttpSession session = request.getSession();
+       HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
 
-        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+       session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 
         //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)
 //        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getUId()));
@@ -146,7 +144,6 @@ public class UserController {
        // return "loginHome";
 
     }
-
 
     @GetMapping("/users")
     public String list(Model model) {

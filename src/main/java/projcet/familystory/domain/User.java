@@ -2,9 +2,11 @@ package projcet.familystory.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,9 @@ public class User {
     @NotNull
     private String phoneNumber;
 
-    private String birthDay;
+
+    private LocalDate birthDay;
+
     private String image;
     private String mainGroupId;
 

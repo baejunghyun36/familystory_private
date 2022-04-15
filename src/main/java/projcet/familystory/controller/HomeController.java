@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import projcet.familystory.domain.User;
 import projcet.familystory.form.LoginForm;
-import projcet.familystory.service.UserService;
+import projcet.familystory.argumentresolver.Login;
 import projcet.familystory.session.SessionConst;
 
 @Slf4j
@@ -56,11 +56,25 @@ public class HomeController {
 
 
 
-    @GetMapping("/users/login")
+   // @GetMapping("/users/login")
     //세션에 들어있으면 그 내용을 User user객체에 넣어줌. 원래는 바로 위의 코드야
-    public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User loginUser,  Model model) {
+    public String homeLogin1(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User loginUser,  Model model) {
 
        if (loginUser == null) {
+            return "home";
+        }
+
+        model.addAttribute("loginUser", loginUser);
+        return "loginHome";
+    }
+
+    //2번째 방법
+    //Login 애노테이션 생성해줌
+    @GetMapping("/users/login")
+    //세션에 들어있으면 그 내용을 User user객체에 넣어줌. 원래는 바로 위의 코드야
+    public String homeLogin(@Login User loginUser, Model model) {
+
+        if (loginUser == null) {
             return "home";
         }
 

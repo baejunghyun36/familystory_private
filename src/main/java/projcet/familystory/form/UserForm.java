@@ -3,8 +3,10 @@ package projcet.familystory.form;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -34,6 +36,7 @@ public class UserForm {
     @NotEmpty(message = "휴대폰 번호는 필수 입니다")
     private String phoneNumber;
 
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotEmpty(message = "생년월일은 필수 입니다")
     private String birthDay;
 

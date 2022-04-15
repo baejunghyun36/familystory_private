@@ -100,14 +100,26 @@
         </div>
 
         <div class="form-group">
-            <label th:for="nickName">생년월일</label>
-            <input type="text" th:field="*{birthDay}" class="form-control"
-                   placeholder="생년월일을 입력하세요"
-                   th:class="${#fields.hasErrors('birthDay')}? 'form-control fieldError' : 'form-control'">
-<!--            <p th:if="${#fields.hasErrors('birthDay')}"-->
-<!--               th:errors="*{birthDay}">Incorrect date</p>-->
-            <div class="field-error" th:errors="*{birthDay}" />
+            <label th:for="street">날짜</label>
+            <input type="date" id="birthDay" name="birthDay" class="form-control" placeholder="시간을 입력하세요. ex)2022-04-10 )" required>
         </div>
+<!--        <div class="form-group">-->
+<!--            <label th:for="birthDay">날짜</label>-->
+<!--            <input type="date" th:field="*{birthDay}" id="when" name="when" class="form-control" placeholder="시간을 입력하세요. ex)2022-04-10 )" required-->
+<!--                   th:class="${#fields.hasErrors('birthDay')}? 'form-control fieldError' : 'form-control'">-->
+<!--            <div class="field-error" th:errors="*{birthDay}" />-->
+<!--        </div>-->
+
+
+<!--        <div class="form-group">-->
+<!--            <label th:for="nickName">생년월일</label>-->
+<!--            <input type="text" th:field="*{birthDay}" class="form-control"-->
+<!--                   placeholder="생년월일을 입력하세요"-->
+<!--                   th:class="${#fields.hasErrors('birthDay')}? 'form-control fieldError' : 'form-control'">-->
+<!--&lt;!&ndash;            <p th:if="${#fields.hasErrors('birthDay')}"&ndash;&gt;-->
+<!--&lt;!&ndash;               th:errors="*{birthDay}">Incorrect date</p>&ndash;&gt;-->
+<!--            <div class="field-error" th:errors="*{birthDay}" />-->
+<!--        </div>-->
 
 
         <br>

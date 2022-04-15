@@ -2,6 +2,7 @@ package projcet.familystory.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,9 +47,53 @@ public class UserController {
         return "users/createUserForm";
     }
 
-    @PostMapping("/users/new")
-    public String create(@Valid UserForm form, BindingResult result, Model model) {
+//
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
 
+//    @PostMapping("/users/new")
+//    public String create(@Valid @ModelAttribute UserForm form, BindingResult result, Model model) {
+//User user = new User();
+//        user.setUserId(form.getId());
+//        user.setPassWord(form.getPassWord());
+//        user.setName(form.getName());
+//        user.setNickName(form.getNickName());
+//        user.setEmail(form.getEmail());
+//        user.setPhoneNumber(form.getPhoneNumber());
+//        user.setBirthDay(form.getBirthDay());
+
+
+  /*  @PostMapping("/users/new")
+    public String create(@Valid
+                         @RequestParam("id") String id,
+                         @RequestParam("passWord") String passWord,
+                         @RequestParam("name") String name,
+                         @RequestParam("nickName") String nickName,
+                         @RequestParam("email") String email,
+                         @RequestParam("phoneNumber") String phoneNumber,
+                         @RequestParam("birthDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDay,
+                         BindingResult result, Model model) {
+        //@Valid 검증 작업
+
+        System.out.println(" 여기서 오류 ");
+        if (result.hasErrors()) {
+            return "users/createUserForm";
+        }
+
+        User user = new User();
+        user.setUserId(id);
+        user.setPassWord(passWord);
+        user.setName(name);
+        user.setNickName(nickName);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setBirthDay(birthDay);*/
+
+
+    @PostMapping("/users/new")
+    public String create(@Valid @ModelAttribute UserForm form, BindingResult result, Model model) {
+        //@Valid 검증 작업
+
+        System.out.println(" 여기서 오류 ");
         if (result.hasErrors()) {
             return "users/createUserForm";
         }
@@ -57,7 +105,11 @@ public class UserController {
         user.setNickName(form.getNickName());
         user.setEmail(form.getEmail());
         user.setPhoneNumber(form.getPhoneNumber());
-        user.setBirthDay(form.getBirthDay());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(form.getBirthDay(), formatter);
+        user.setBirthDay(localDate);
+
 //        user.setImage(form.getImage());
 //        user.setMainGroupId(form.getMainGroupId());
 
@@ -112,9 +164,9 @@ public class UserController {
 //    }
 
     @PostMapping("/users/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, Model model,//
-                        HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletRequest request) {
 
+        //@Valid 검증 작업
         if (result.hasErrors()) {
             return "home";
         }

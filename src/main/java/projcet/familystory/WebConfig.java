@@ -3,21 +3,36 @@ package projcet.familystory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import projcet.familystory.argumentresolver.LoginMemberArgumentResolver;
 import projcet.familystory.filter.LogFilter;
 import projcet.familystory.filter.LoginCheckFilter;
 import projcet.familystory.interceptor.LogInterceptor;
 
 import javax.servlet.Filter;
+import java.util.List;
 
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     //WebMvcConfigurer 실행.
+
+
+    //ctrl+o
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        //만든 애노테이션 추가
+        resolvers.add(new LoginMemberArgumentResolver());
+
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+
         registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")//하위 전부 다

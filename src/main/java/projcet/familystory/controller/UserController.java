@@ -99,8 +99,8 @@ public class UserController {
         }
 
         User user = new User();
-        user.setUserId(form.getId());
-        user.setPassWord(form.getPassWord());
+        user.setUserID(form.getId());
+        user.setPassword(form.getPassWord());
         user.setName(form.getName());
         user.setNickName(form.getNickName());
         user.setEmail(form.getEmail());
@@ -108,7 +108,8 @@ public class UserController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(form.getBirthDay(), formatter);
-        user.setBirthDay(localDate);
+        user.setBirthday(localDate);
+
 
 //        user.setImage(form.getImage());
 //        user.setMainGroupId(form.getMainGroupId());

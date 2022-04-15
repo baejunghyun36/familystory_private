@@ -4,28 +4,32 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
-@Setter
-@Getter
+@Getter @Setter
 public class Team {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="tid")
-    private Long tId;
 
-    @Column(name="team_id")
-    private String teamId;
-    @Column(name="team_name")
+    @Id
+    @GeneratedValue
+    private Long tID;
+
+    @NotNull
+    private String teamID;
+
+    @NotNull
     private String teamName;
-    @Column(name="team_image")
+
     private String teamImage;
 
-    @OneToMany(mappedBy = "team")  //membergroup에 있는 group
-    private List<UserTeam> memberGroup2 = new ArrayList<>();
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<UserTeam> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<TeamEvent> teamEvents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<Content> contents = new ArrayList<>();
 }
-
-

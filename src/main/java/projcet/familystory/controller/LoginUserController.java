@@ -31,8 +31,8 @@ public class LoginUserController {
         //log.info("\n\n\nsession 정보 : {}", session);
         User user = userService.findByUid(uID);
 
-        Long uid1 = user.getUId();
-        Long uid2 = ((User) session.getAttribute(SessionConst.LOGIN_USER)).getUId();
+        Long uid1 = user.getUID();
+        Long uid2 = ((User) session.getAttribute(SessionConst.LOGIN_USER)).getUID();
         if (uid1.equals(uid2)) {
             model.addAttribute("myInformation", user);
             return "users/myPage";

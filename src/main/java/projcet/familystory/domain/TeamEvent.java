@@ -5,24 +5,23 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-public class UserTeam {
+public class TeamEvent {
 
     @Id
     @GeneratedValue
-    private Long utID;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="uID")
-    private User user;
+    private Long teID;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="tID")
     private Team team;
 
     @NotNull
-    private LocalDateTime joinTime;
+    private String eventName;
+
+    @NotNull
+    private LocalDate eventDate;
 }

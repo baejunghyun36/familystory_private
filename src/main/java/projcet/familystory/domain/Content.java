@@ -5,15 +5,31 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public class UserTeam {
+public class Content {
 
     @Id
     @GeneratedValue
-    private Long utID;
+    private Long cID;
+
+    @NotNull
+    private String photoRoute;
+
+    @NotNull
+    private String explanation;
+
+    @NotNull
+    private String location;
+
+    @NotNull
+    private LocalDate when;
+
+    @NotNull
+    private LocalDateTime uploadTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="uID")
@@ -22,7 +38,4 @@ public class UserTeam {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="tID")
     private Team team;
-
-    @NotNull
-    private LocalDateTime joinTime;
 }

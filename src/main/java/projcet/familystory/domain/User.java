@@ -2,7 +2,6 @@ package projcet.familystory.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,36 +10,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name="uId")
-    private Long uId;
+    private Long uID;
+
     @NotNull
-    private String userId;
+    private String userID;
+
     @NotNull
-    private String passWord;
+    private String password;
+
     @NotNull
     private String name;
-    @NotNull
-    private String nickName;
+
     @NotNull
     private String email;
+
+    @NotNull
+    private String nickName;
+
     @NotNull
     private String phoneNumber;
 
+    @NotNull
+    private LocalDate birthday;
 
-    private LocalDate birthDay;
+    private String userImage;
+    private String mainTeamID;
 
-    private String image;
-    private String mainGroupId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserTeam> teams = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "user")  //membergroup에 있는 member
-    private List<UserTeam> memberGroup1 = new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Content> contents = new ArrayList<>();
 }

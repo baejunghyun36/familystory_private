@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import projcet.familystory.argumentresolver.LoginMemberArgumentResolver;
 import projcet.familystory.filter.LogFilter;
 import projcet.familystory.filter.LoginCheckFilter;
-import projcet.familystory.interceptor.LogInterceptor;
+
+import projcet.familystory.interceptor.LoginCheckIntercept;
 
 import javax.servlet.Filter;
 import java.util.List;
@@ -28,17 +29,19 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new LoginMemberArgumentResolver());
 
     }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //스프링이 그냥 이렇게 제공해.
+//        registry.addInterceptor(new LogInterceptor()) //chain 형식
+//                .order(1)
+//                .addPathPatterns("/**")//하위 전부 다
+//                .excludePathPatterns("/css/**", "/*.ico", "/error" ); //인터셉트 먹이지마
 
-
-        registry.addInterceptor(new LogInterceptor())
+        registry.addInterceptor(new LoginCheckIntercept())
                 .order(1)
-                .addPathPatterns("/**")//하위 전부 다
-                .excludePathPatterns("/css/**", "/*.ico", "/error"); //인터셉트 먹이지마
+                .addPathPatterns("/**")
+                .excludePathPatterns("/","/css/**", "/*.ico", "/error", "/users/new" );
     }
-
 
     @Bean
     public FilterRegistrationBean logFilter(){

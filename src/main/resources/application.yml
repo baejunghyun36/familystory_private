@@ -14,6 +14,16 @@ spring:
       hibernate:
         # show_sql: true
         format_sql: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 1090877835458-4dh79o676oabnfv3enn4be9hn5js1uq8.apps.googleusercontent.com
+#            client-secret: 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
+#            scope: profile, email
+#  profiles:
+#    include: oauth
 
 
 
@@ -27,5 +37,9 @@ server:
   servlet:
     session:
       timeout: 1800
+
+
+
+
 
 

@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import projcet.familystory.domain.User;
+
 import projcet.familystory.form.LoginForm;
 import projcet.familystory.argumentresolver.Login;
 import projcet.familystory.session.SessionConst;
@@ -18,17 +18,19 @@ public class HomeController {
 
 
     /*
-   localhost:8080 접근 시 해당 RequestMapping을 통해서 home.html 로 보여준다.
+   localhost:8080 접근 시 해당 RequestMapping을 통해2서 home.html 로 보여준다.
    이때, "loginForm"이라는 모델에 LoginForm()의 형식을 담고 간다.
    LoginForm()에는 loginId와 password를 String형태로 담고 있으며, @NotEmpty 애노테이션을 줌으로써 공백 입력시 오류를 표시한다.
 */
 
     // 최초 접근 시 해당 GetMapping을 통해서 home.html로 보여준다.
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @Login User loginUser) {
         // 이때, "loginForm"이라는 이름을 가진 모델에 LoginForm()의 형식을 담고 간다.
         model.addAttribute("loginForm", new LoginForm());
+
         return "home";
+
     }
 
 

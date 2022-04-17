@@ -27,8 +27,8 @@ public class UserRepository {
         System.out.println("uid = " + uid);
         List<User> all = findAll();
         for (User u : all) {
-            if (u.getUId().equals(uid)) {
-                System.out.println("u.getUId() = " + u.getUId());
+            if (u.getUID().equals(uid)) {
+                System.out.println("u.getUId() = " + u.getUID());
                 return u; //optional 객체는 껍데기 통인데 null이 들어갈수 있어
             }
         }
@@ -45,7 +45,7 @@ public class UserRepository {
     }
 
     public List<User> findUserId(String userId) {
-        return em.createQuery("select u from User u where u.userId = :userId", User.class)
+        return em.createQuery("select u from User u where u.userID = :userId", User.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
@@ -66,7 +66,7 @@ public class UserRepository {
         //리스트를 stream으로 돌면서 만족하는 애만 다음 단계로 넘어가.
         //즉,   .filter(u -> u.getUserId().equals(loginId))이거 만족하면 뒤에 .findFirst() 만족하면 바로 넘어가
         return findAll().stream()
-                .filter(u -> u.getUserId().equals(loginId))
+                .filter(u -> u.getUserID().equals(loginId))
                 .findFirst();
     }
 }

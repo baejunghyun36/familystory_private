@@ -1,3 +1,4 @@
+
 package projcet.familystory.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -9,25 +10,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
 import projcet.familystory.domain.User;
 import projcet.familystory.form.LoginForm;
 import projcet.familystory.form.UserForm;
 import projcet.familystory.service.UserService;
 import projcet.familystory.session.SessionConst;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-
 
 @Slf4j
 @Controller
@@ -36,57 +30,16 @@ public class UserController {
 
     private final UserService userService;
 
-    /*
+
         [home.html 회원가입 버튼 -> createUserForm.html] 과정
         회원가입 버튼을 눌렀을 때 users/new로 GetMapping 된다.
         "userForm"이라는 이름을 가진 model 박스에 UserForm의 객체를 담아서 createUserFormd.html 에 보낸다.
-    */
+
     @GetMapping("/users/new")
     public String createForm(Model model) {
         model.addAttribute("userForm", new UserForm());
         return "users/createUserForm";
     }
-
-//
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-
-//    @PostMapping("/users/new")
-//    public String create(@Valid @ModelAttribute UserForm form, BindingResult result, Model model) {
-//User user = new User();
-//        user.setUserId(form.getId());
-//        user.setPassWord(form.getPassWord());
-//        user.setName(form.getName());
-//        user.setNickName(form.getNickName());
-//        user.setEmail(form.getEmail());
-//        user.setPhoneNumber(form.getPhoneNumber());
-//        user.setBirthDay(form.getBirthDay());
-
-
-  /*  @PostMapping("/users/new")
-    public String create(@Valid
-                         @RequestParam("id") String id,
-                         @RequestParam("passWord") String passWord,
-                         @RequestParam("name") String name,
-                         @RequestParam("nickName") String nickName,
-                         @RequestParam("email") String email,
-                         @RequestParam("phoneNumber") String phoneNumber,
-                         @RequestParam("birthDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthDay,
-                         BindingResult result, Model model) {
-        //@Valid 검증 작업
-
-        System.out.println(" 여기서 오류 ");
-        if (result.hasErrors()) {
-            return "users/createUserForm";
-        }
-
-        User user = new User();
-        user.setUserId(id);
-        user.setPassWord(passWord);
-        user.setName(name);
-        user.setNickName(nickName);
-        user.setEmail(email);
-        user.setPhoneNumber(phoneNumber);
-        user.setBirthDay(birthDay);*/
 
 
     @PostMapping("/users/new")
@@ -111,8 +64,8 @@ public class UserController {
         user.setBirthday(localDate);
 
 
-//        user.setImage(form.getImage());
-//        user.setMainGroupId(form.getMainGroupId());
+        user.setImage(form.getImage());
+        user.setMainGroupId(form.getMainGroupId());
 
         Optional<User> signUser = userService.join(user);
 
@@ -123,46 +76,46 @@ public class UserController {
 
         model.addAttribute("loginForm", new LoginForm());
         return "home";
-//        else {
-//            return "users/createUserForm";
-//        }
-        //홈에 보내
+        else {
+            return "users/createUserForm";
+        }
+        홈에 보내
     }
 
-    //@PostMapping("/users/login")
-//    public String login(@Valid LoginForm form, BindingResult result, Model model, HttpServletResponse response) {
-//
-//
-//        if (result.hasErrors()) {
-//            return "home";
-//        }
-//
-//        User loginUser = userService.login(form.getLoginId(), form.getPassword());
-//
-//
-//        if (loginUser == null) {
-//            result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다. ");
-//            return "home";
-//        }
-//
-//
-//        //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)
-//        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getUId()));
-//        response.addCookie(idCookie);
-//
-//        return "redirect:/users/login";
-//
-//        if(userService.findOne(user)==false){
-//            return "redirect:/";
-//        }
-//
-//        else{
-//            model.addAttribute("loginUser", user);
-//            return "users/login";
-//        }
-//
-//        //홈에 보내
-//    }
+    @PostMapping("/users/login")
+    public String login(@Valid LoginForm form, BindingResult result, Model model, HttpServletResponse response) {
+
+
+        if (result.hasErrors()) {
+            return "home";
+        }
+
+        User loginUser = userService.login(form.getLoginId(), form.getPassword());
+
+
+        if (loginUser == null) {
+            result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다. ");
+            return "home";
+        }
+
+
+        쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)
+        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getUId()));
+        response.addCookie(idCookie);
+
+        return "redirect:/users/login";
+
+        if(userService.findOne(user)==false){
+            return "redirect:/";
+        }
+
+        else{
+            model.addAttribute("loginUser", user);
+            return "users/login";
+        }
+
+        //홈에 보내
+    }
 
     @PostMapping("/users/login")
     public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletRequest request) {
@@ -182,19 +135,19 @@ public class UserController {
             return "home";
         }
 
-        //로그인 성공 처리
-        //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
+        로그인 성공 처리
+        세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
        HttpSession session = request.getSession();
-        //세션에 로그인 회원 정보 보관
+        세션에 로그인 회원 정보 보관
 
        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 
-        //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)
-//        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getUId()));
-//        response.addCookie(idCookie);
+        쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두종료)
+        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getUId()));
+        response.addCookie(idCookie);
 
         return "redirect:/users/login";
-       // return "loginHome";
+
 
     }
 
@@ -205,20 +158,20 @@ public class UserController {
         return "users/userList";
     }
 
-    //    @GetMapping("/users")
-//    public String list(Model model) {
-//        List<User> users = userService.findUsers();
-//        model.addAttribute("users", users);
-//        return "users/userList";
-//    }
+        @GetMapping("/users")
+    public String list(Model model) {
+        List<User> users = userService.findUsers();
+        model.addAttribute("users", users);
+        return "users/userList";
+    }
 
 
-//    @PostMapping("/logout")
-//    public String logout(HttpServletResponse response) {
-//        expireCookie(response, "userId");
-//        return "redirect:/";
-//
-//    }
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        expireCookie(response, "userId");
+        return "redirect:/";
+
+    }
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -229,13 +182,13 @@ public class UserController {
         return "redirect:/";
     }
 
-//    private void expireCookie(HttpServletResponse response, String cookieName) {
-//        Cookie cookie = new Cookie(cookieName, null);
-//        cookie.setMaxAge(0);
-//        response.addCookie(cookie);
-//    }
+    private void expireCookie(HttpServletResponse response, String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 
-/*
+
     쿠키에 중요한 값을 노출하지 않고 사용자 별로 에측 불가능한 임의의 토큰(랜덤 값)을 노출하고, 서버에서 토큰과 사용자 id를 매핑해서
   인식한다. 그리고 서버에서 토큰을 관리한다.
   토큰은 해커가 임의의 값을 넣어도 찾을수 없도록 예상 불가능해야한다.
@@ -263,13 +216,5 @@ public class UserController {
      - 예상 불가능한 복잡한 세션 Id를 사용함으로써 쿠키 값을 변조할 수 없다.
      - 세션 Id가 털려도 여기에는 중요한 정보가 없다.
      - 해커가 토큰을 털어가도 시간이 지나면 사용할 수 없도록 서버에서 세션의 만료시간을 짧게 유지
-
-
-
-    */
-
-
-
-
 
 }

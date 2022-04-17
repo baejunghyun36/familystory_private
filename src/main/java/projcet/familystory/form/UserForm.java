@@ -13,11 +13,10 @@ import java.time.LocalDate;
 public class UserForm {
 
 
-    /*
-회원가입을 할 때 사용하는 form으로 id, password, name, nickname, email,phoneNumber, birthday의 데이터 내용을 담고 있다.
-해당 폼양식에서 @NotEmpty 애노테이션 형식을 사용함으로써 공백 데이터를 방지한다.
-만약 공백 데이터가 들어왔을 때 경우 해당 message를 출력함으로써 사용자에게 경고 UI를 제공한다.
-*/
+
+    /*    SignUpForm()에서 입력받을 멤버변수들을 생성하여 @NotEmpty 애노테이션을 주어 공백을 주지 않도록한다.
+        만약 Form에서 공백으로 전송된다면 오류 message를 띄워 아래와같이 출력하도록 한다.*/
+
     @NotEmpty(message = "아이디는 필수 입니다")
     private String id;
 

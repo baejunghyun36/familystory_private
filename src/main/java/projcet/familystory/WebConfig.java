@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     //WebMvcConfigurer 실행.
 
-
     //ctrl+o
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
@@ -31,18 +30,15 @@ public class WebConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //스프링이 그냥 이렇게 제공해.
-//        registry.addInterceptor(new LogInterceptor()) //chain 형식
-//                .order(1)
-//                .addPathPatterns("/**")//하위 전부 다
-//                .excludePathPatterns("/css/**", "/*.ico", "/error" ); //인터셉트 먹이지마
-
+        //인터셉트 순서 체인식으로 적용. order(2) 가 있으면 .order(1)을 수행하고 다음 인터셉트 적용.
         registry.addInterceptor(new LoginCheckIntercept())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/","/css/**", "/*.ico", "/error", "/users/new" );
+                .order(1) //첫번째 인터셉트
+                .addPathPatterns("/**") //하위 전부 허용하되,
+                .excludePathPatterns("/","/css/**", "/*.ico", "/error", "/signUp" ); //이 url 에는 인터셉트 먹이지마.
     }
 
+/*
+    필터 적용 코드. 하지만 인터셉트를 사용하기 때문에 주석.
     @Bean
     public FilterRegistrationBean logFilter(){
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
@@ -61,7 +57,7 @@ public class WebConfig implements WebMvcConfigurer {
         filterRegistrationBean.addUrlPatterns("/*");
 
         return filterRegistrationBean;
-    }
+    }*/
 
 
 

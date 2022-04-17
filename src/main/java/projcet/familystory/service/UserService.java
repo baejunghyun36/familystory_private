@@ -25,12 +25,10 @@ public class UserService {
 
     @Transactional(readOnly = false)
     public Optional<User> join(User user) {
-
-        List<User> findUsers = userRepository.findUserId(user.getUserId());
+        List<User> findUsers = userRepository.findUserId(user.getUserID());
         if (findUsers.isEmpty()){
             userRepository.save(user);
             return Optional.of(user);
-            //throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         }
         return null;
     }
@@ -39,24 +37,58 @@ public class UserService {
         return userRepository.findOne(Uid);
     }
 
-
-//
-//    private boolean validateDuplicateUser(User user) {
-//        //List<User> findUsers = userRepository.findByName(user.getUserId());
-////        if (findUsers.isEmpty()){
-////            return false;
-////            //throw new IllegalArgumentException("이미 존재하는 회원입니다.");
-////        }
-////        return true;
-//    }
-
-    //회원 전체 조회
-    public List<User> findUsers(){
-        return userRepository.findAll();
+    public Optional<User> findId(User user) {
+        List<User> findUsers = userRepository.findAll();
+        for(User u : findUsers){
+            if(user.getName().equals(u.getName())&&user.getEmail().equals(u.getEmail())) {
+                return Optional.of(u);
+            }
+        }
+        return null;
     }
 
-    //회원 조회
-    public boolean findOne(User user) {
+
+    public User login(String loginId, String password) {
+
+     /*
+        첫번째 코드 방식
+        Optional<User> findUserOptional = userRepository.findByLoginId(loginId);
+        User user = findUserOptional.get();
+        if(user.getPassWord().equals(password)){
+            return user;
+        }
+        else{
+            return null;
+        }
+
+        두번째 코드 방식
+        Optional<User> byLoginId = userRepository.findByLoginId(loginId);
+        return byLoginId.filter(u -> u.getPassWord().equals(password))
+                .orElse(null);
+*/
+
+        // 3번째 코드 방식
+        return userRepository.findByLoginId(loginId).filter(u -> u.getPassword().equals(password))
+                .orElse(null);
+
+    }
+}
+
+
+/*
+    private boolean validateDuplicateUser(User user) {
+        //List<User> findUsers = userRepository.findByName(user.getUserId());
+        if (findUsers.isEmpty()){
+            return false;
+            //throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+        }
+        return true;
+    }
+
+    */
+
+//회원 조회
+  /*  public boolean findOne(User user) {
         //List<Member> findMembers = memberRepository.findByName(member.getUserId());
         List<User> findUsers = userRepository.findAll();
         for(User u : findUsers){
@@ -65,25 +97,4 @@ public class UserService {
         }
         return false;
     }
-
-    public User login(String loginId, String password) {
-//        Optional<User> findUserOptional = userRepository.findByLoginId(loginId);
-//        User user = findUserOptional.get();
-//        if(user.getPassWord().equals(password)){
-//            return user;
-//        }
-//        else{
-//            return null;
-//        }
-
-        //다른 코드
-//        Optional<User> byLoginId = userRepository.findByLoginId(loginId);
-//        return byLoginId.filter(u -> u.getPassWord().equals(password))
-//                .orElse(null);
-
-        //또 다른 코드
-        return userRepository.findByLoginId(loginId).filter(u -> u.getPassWord().equals(password))
-                .orElse(null);
-
-    }
-}
+*/

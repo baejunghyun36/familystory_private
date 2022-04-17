@@ -7,8 +7,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import projcet.familystory.argumentresolver.LoginMemberArgumentResolver;
-import projcet.familystory.filter.LogFilter;
-import projcet.familystory.filter.LoginCheckFilter;
+
 
 import projcet.familystory.interceptor.LoginCheckIntercept;
 

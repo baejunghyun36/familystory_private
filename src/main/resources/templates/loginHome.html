@@ -3,8 +3,6 @@
 <head th:replace="fragments/header :: header">
 
 <body>
-
-
 <div class="container">
 
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
@@ -12,14 +10,11 @@
 
     <!--    <h2><span th:text="${loginMember.userId}"></span>님 반갑습니다</h2>-->
 
-    <h4 th:text="|${loginUser.nickName}님 반갑습니다!!|">로그인 사용자 이름</h4>
+    <h4 th:text="|${loginUser.userID}님 반갑습니다!!|">로그인 사용자 이름</h4>
 
+    <li><a th:href="@{/myPage}">마이페이지(세션으로만) </a></li>
 
-    <li><a th:href="@{/{uID}/myPage(uID=${loginUser.UID})}">내 정보로 가기1 </a></li>
-
-    <li><a th:href="@{/myPage1}">내 정보로 가기2 (세션으로만) </a></li>
-
-    <li><a th:href="@{/myPage}">내 정보로 가기3 (세션으로만) </a></li>
+    <br><br>
 
     <div class="col">
         <form th:action="@{/logout}" method="post">
@@ -29,6 +24,14 @@
             </button>
         </form>
     </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>
+
+
+
 
 
 

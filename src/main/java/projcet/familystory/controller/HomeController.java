@@ -10,12 +10,16 @@ import projcet.familystory.domain.User;
 import projcet.familystory.form.LoginForm;
 import projcet.familystory.argumentresolver.Login;
 import projcet.familystory.session.SessionConst;
+import projcet.familystory.social.SessionUser;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-
+    //private final PostsService postsService;
+    private final HttpSession httpSession;
 
     /*
    localhost:8080 접근 시 해당 RequestMapping을 통해2서 home.html 로 보여준다.
@@ -28,6 +32,25 @@ public class HomeController {
     public String home(Model model, @Login User loginUser) {
         // 이때, "loginForm"이라는 이름을 가진 모델에 LoginForm()의 형식을 담고 간다.
         model.addAttribute("loginForm", new LoginForm());
+
+        //////////구글/////////////////////////////
+
+      //  model.addAttribute("posts", postsService.findAllDesc());
+        /* (SessionUser) httpSession.getAttribute("user")
+           : CustomOAuth2UserService에서 로그인 성공 시 세션에 SessionUser를 저장하도록 구성
+              즉, 로그인 성공 시 httpSession.getAttibute("user")에서 값을 가져올 수 있음 */
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        /* if(user != null)
+           : 세션에 저장된 값이 있을 때만 model에 userName으로 등록
+             세션에 저장된 값이 없으면 model엔 아무런 값이 없는 상태니 로그인 버튼이 보이게 됨 */
+        if(user != null) {
+            model.addAttribute("myName", user.getName());
+        }
+
+
+        ////////////////////////////////////////////
+
+
 
         return "home";
 
@@ -109,4 +132,8 @@ public class HomeController {
 //        model.addAttribute("loginUser", loginUser);
 //        return "loginHome";
 //    }
+
+
+
+
 }

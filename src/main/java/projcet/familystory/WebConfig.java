@@ -27,14 +27,14 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new LoginMemberArgumentResolver());
 
     }
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //인터셉트 순서 체인식으로 적용. order(2) 가 있으면 .order(1)을 수행하고 다음 인터셉트 적용.
-        registry.addInterceptor(new LoginCheckIntercept())
-                .order(1) //첫번째 인터셉트
-                .addPathPatterns("/**") //하위 전부 허용하되,
-                .excludePathPatterns("/","/css/**", "/*.ico", "/error", "/signUp" ); //이 url 에는 인터셉트 먹이지마.
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        //인터셉트 순서 체인식으로 적용. order(2) 가 있으면 .order(1)을 수행하고 다음 인터셉트 적용.
+//        registry.addInterceptor(new LoginCheckIntercept())
+//                .order(1) //첫번째 인터셉트
+//                .addPathPatterns("/**") //하위 전부 허용하되,
+//                .excludePathPatterns("/","/css/**", "/*.ico", "/error", "/signUp" ); //이 url 에는 인터셉트 먹이지마.
+//    }
 
 /*
     필터 적용 코드. 하지만 인터셉트를 사용하기 때문에 주석.

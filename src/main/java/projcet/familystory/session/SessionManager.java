@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class SessionManager {
 
-
     public static final String SESSION_COOKIE_NAME = "mySessionId";
     private Map<String, Object> sessionStore = new ConcurrentHashMap<>();
     /**

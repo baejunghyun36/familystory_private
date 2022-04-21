@@ -1,7 +1,9 @@
 package projcet.familystory.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import projcet.familystory.social.Role1;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -46,4 +48,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Content> contents = new ArrayList<>();
+
+
+
+
+
 }

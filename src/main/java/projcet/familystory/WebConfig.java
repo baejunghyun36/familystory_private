@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import projcet.exception.interceptor.LogInterceptor1;
 import projcet.familystory.argumentresolver.LoginMemberArgumentResolver;
 
 
@@ -27,7 +28,17 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new LoginMemberArgumentResolver());
 
     }
-//    @Override
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor1())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**", "**.ico", "/error", "/error-page/**"); // 오류 페이지 경로
+    }
+
+
+    //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        //인터셉트 순서 체인식으로 적용. order(2) 가 있으면 .order(1)을 수행하고 다음 인터셉트 적용.
 //        registry.addInterceptor(new LoginCheckIntercept())
